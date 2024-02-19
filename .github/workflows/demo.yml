@@ -1,0 +1,46 @@
+# Requires credentials for a Wiz Service Account to authenticate to Wiz.
+# Reference: https://docs.wiz.io/wiz-docs/docs/service-accounts-settings
+#
+# Wiz Service Account permissions: create:security_scans.
+# Reference: https://docs.wiz.io/wiz-docs/docs/github-pipeline
+#
+# Store CLIENT_ID as secrets.WIZ_CLIENT_ID and SECRET as secrets.WIZ_CLIENT_SECRET
+# Reference: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+
+name: 'wiz-iac-scan'
+
+on:
+  pull_request:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  wiz-iac-scan:
+    name: 'WizCLI IaC Scan'
+    env:
+      POLICY: 'an-s3-bucket-versioning-demo'
+      SCAN_PATH: '.'
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Download WizCLI
+      run: |
+        curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
+
+    - name: Authenticate to Wiz
+      run: |
+        ./wizcli auth --id "${WIZ_CLIENT_ID}" --secret "${WIZ_CLIENT_SECRET}"
+      env:
+        WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+        WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+    - name: Run WizCLI IaC Scan
+      run: |
+        ./wizcli iac scan --path "${SCAN_PATH}" --policy "${POLICY}"
