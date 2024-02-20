@@ -19,8 +19,9 @@ jobs:
   wiz-iac-scan:
     name: 'WizCLI IaC Scan'
     env:
-      POLICY: 'an-s3-bucket-versioning-demo'
+      POLICY: 'Default IaC policy,secrets'
       SCAN_PATH: '.'
+      PROJECT: '7422b0bb-b8b0-57a7-ac7f-08c39f865c3a'
     defaults:
       run:
         shell: bash
@@ -43,4 +44,4 @@ jobs:
 
     - name: Run WizCLI IaC Scan
       run: |
-        ./wizcli iac scan --path "${SCAN_PATH}" --policy "${POLICY}"
+        ./wizcli iac scan --path "${SCAN_PATH}" --policy "${POLICY}" --project "${PROJECT}"
