@@ -13,6 +13,7 @@ This repository supports demonstrating ShiftLeft features of Wiz.
 * Create `WIZ_CLIENT_ID` and `WIZ_CLIENT_SECRET` [secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) in your repository
 * Run the `WizCLI IaC Scan` GitHub Action once to register it for use in Branch Protection.
     * Navigate to `Actions > wiz-iac-scan`
+    * wizcli iac scan --path "${SCAN_PATH}" --policy "${POLICY}" --project "${PROJECT}"
     * Select `Run Workflow`
 * Configure Branch Protection for the `main` branch
     * Navigate to `Settings > Code and Automation > Branches`
@@ -37,3 +38,6 @@ Use your copy of this repository:
 
 This repository depends upon the [SecCloudDev-Demo](https://app.wiz.io/policies/cicd-policies#~(filters~(search~(contains~'SecCloudDev-Demo)))) CI/CD Policies
 and the [SecCloudDev Demo for S3](https://app.wiz.io/settings/security-frameworks#~(filters~(search~(contains~'SecCloudDev*20Demo)))) Compliance Framework.
+
+
+
