@@ -1,4 +1,4 @@
-# Wiz Secure Cloud Development Demo Repository
+# Wiz Secure Cloud Development Demo Repository - test
 
 WizCLI helps shift security policies left by empowering DevOps to prevent insecure resources from being deployed.
 
